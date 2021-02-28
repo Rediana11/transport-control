@@ -1,39 +1,24 @@
-package com.ikubinfo.internship.entity;
+package com.ikubinfo.internship.dto;
 
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-@Entity
-@Table(name = "route_type")
-public class RouteTypeEntity {
+public class RouteTypeDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
-    @ManyToOne( cascade = CascadeType.ALL)
-    @JoinColumn(name = "route_id",referencedColumnName = "id",nullable = false)
-    private RouteEntity route;
+    private RouteDTO route;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private String code;
 
-    @Column(length = 300)
     private String description;
 
-
-    @Column(name = "created_on")
     private Date created_on;
 
-    @Column(name = "updated_on")
     private Date updatedOn;
 
-    @Column(name = "is_deleted")
     private boolean isDeleted;
 
     public Long getId() {
@@ -42,6 +27,14 @@ public class RouteTypeEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public RouteDTO getRoute() {
+        return route;
+    }
+
+    public void setRoute(RouteDTO route) {
+        this.route = route;
     }
 
     public String getName() {
@@ -68,7 +61,6 @@ public class RouteTypeEntity {
         this.description = description;
     }
 
-
     public Date getCreated_on() {
         return created_on;
     }
@@ -76,7 +68,6 @@ public class RouteTypeEntity {
     public void setCreated_on(Date created_on) {
         this.created_on = created_on;
     }
-
 
     public Date getUpdatedOn() {
         return updatedOn;
