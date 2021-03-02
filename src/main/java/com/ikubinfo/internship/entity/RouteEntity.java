@@ -1,9 +1,7 @@
 package com.ikubinfo.internship.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "route")
@@ -13,8 +11,8 @@ public class RouteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "route")
-    private List<RouteTypeEntity> routeTypes;
+    @ManyToMany(mappedBy = "routes")
+    Set<RouteTypeEntity> routeTypes= new HashSet<>();
 
     @Column(nullable = false)
     private String code;
@@ -111,11 +109,11 @@ public class RouteEntity {
         this.duration = duration;
     }
 
-    public List<RouteTypeEntity> getRouteTypes() {
+    public Set<RouteTypeEntity> getRouteTypes() {
         return routeTypes;
     }
 
-    public void setRouteTypes(List<RouteTypeEntity> routeTypes) {
+    public void setRouteTypes(Set<RouteTypeEntity> routeTypes) {
         this.routeTypes = routeTypes;
     }
 

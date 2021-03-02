@@ -1,9 +1,9 @@
 package com.ikubinfo.internship.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "route_type")
@@ -13,9 +13,12 @@ public class RouteTypeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne( cascade = CascadeType.ALL)
-    @JoinColumn(name = "route_id",referencedColumnName = "id",nullable = false)
-    private RouteEntity route;
+    @ManyToMany
+    @JoinTable(
+            name = "route_route_type",
+            joinColumns = @JoinColumn(name = "route_id"),
+            inverseJoinColumns = @JoinColumn(name = "route_type_id"))
+    private Set<RouteEntity> routes = new HashSet<>();
 
     @Column(nullable = false)
     private String name;
@@ -77,6 +80,13 @@ public class RouteTypeEntity {
         this.created_on = created_on;
     }
 
+    public Set<RouteEntity> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(Set<RouteEntity> routes) {
+        this.routes = routes;
+    }
 
     public Date getUpdatedOn() {
         return updatedOn;

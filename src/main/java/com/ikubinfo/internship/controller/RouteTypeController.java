@@ -1,7 +1,6 @@
 package com.ikubinfo.internship.controller;
 
 import com.ikubinfo.internship.entity.RouteTypeEntity;
-import com.ikubinfo.internship.entity.TravelCardTypeEntity;
 import com.ikubinfo.internship.service.RouteTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,8 +18,8 @@ public class RouteTypeController {
     private RouteTypeService routeTypeService;
 
 
-    @GetMapping
-    public ResponseEntity<List<RouteTypeEntity>> getAllEmployees() {
+    @GetMapping("/list")
+    public ResponseEntity<List<RouteTypeEntity>> getAllRouteTypes() {
         List<RouteTypeEntity> list = routeTypeService.getAllRouteTypes();
 
         return new ResponseEntity<List<RouteTypeEntity>>(list, new HttpHeaders(), HttpStatus.OK);
@@ -38,15 +37,14 @@ public class RouteTypeController {
         return ResponseEntity.ok().body(this.routeTypeService.createRouteType(routeType));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<RouteTypeEntity> updateRouteType(@PathVariable long id, @RequestBody RouteTypeEntity routeType) {
-        routeType.setId(id);
+    @PutMapping("/update")
+    public ResponseEntity<RouteTypeEntity> updateRouteType(@RequestBody RouteTypeEntity routeType) {
         return ResponseEntity.ok().body(this.routeTypeService.updateRouteType(routeType));
     }
 
     @DeleteMapping("/{id}")
-    public HttpStatus deleteRouteTypeById(@PathVariable("id") Long id) {
-        routeTypeService.deleteRouteTypeById(id);
+    public HttpStatus deleteRouteTypeById(@RequestBody RouteTypeEntity routeType) {
+        routeTypeService.deleteRouteTypeById(routeType);
         return HttpStatus.FORBIDDEN;
     }
 }

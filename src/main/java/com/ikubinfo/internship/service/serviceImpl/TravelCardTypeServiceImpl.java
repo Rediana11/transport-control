@@ -1,6 +1,5 @@
 package com.ikubinfo.internship.service.serviceImpl;
 
-import com.ikubinfo.internship.entity.TravelCardEntity;
 import com.ikubinfo.internship.entity.TravelCardTypeEntity;
 import com.ikubinfo.internship.repository.TravelCardTypeRepository;
 import com.ikubinfo.internship.service.TravelCardTypeService;
@@ -16,11 +15,11 @@ import java.util.Optional;
 public class TravelCardTypeServiceImpl implements TravelCardTypeService {
 
     @Autowired
-    TravelCardTypeRepository cardTypeRepository;
+    private TravelCardTypeRepository cardTypeRepository;
 
     @Override
     public List<TravelCardTypeEntity> getAllCardTypes() {
-        List<TravelCardTypeEntity> cardTypes = cardTypeRepository.findAllValidCardTypes();
+        List<TravelCardTypeEntity> cardTypes = cardTypeRepository.findByIsDeleted(false);
 
         if (cardTypes.size() > 0) {
             return cardTypes;
@@ -33,45 +32,38 @@ public class TravelCardTypeServiceImpl implements TravelCardTypeService {
     public TravelCardTypeEntity getCardTypeById(Long id) {
         Optional<TravelCardTypeEntity> cardType = cardTypeRepository.findById(id);
 
-        if (cardType.isPresent()) {
-            return cardType.get();
-        } else {
-            throw new InvalidConfigurationPropertyValueException("No card type record exist for given id", cardType, "");
-        }
+        return cardType.orElseThrow(() -> new IllegalArgumentException("Not valid Id: " + id));
+
     }
 
     @Override
     public TravelCardTypeEntity createCardType(TravelCardTypeEntity cardType) {
-        return cardTypeRepository.save(cardType);
+        if (!cardTypeRepository.existsById(cardType.getId())) {
+            return cardTypeRepository.save(cardType);
+        }
+        else {
+            throw new IllegalArgumentException("Card type already exists: " + cardType.getId());
+        }
+
     }
 
     @Override
     public TravelCardTypeEntity updateCardType(TravelCardTypeEntity cardType) {
-        Optional < TravelCardTypeEntity > card = this.cardTypeRepository.findById(cardType.getId());
-
-        if (card.isPresent()) {
-            TravelCardTypeEntity newEntity = card.get();
-            newEntity.setId(cardType.getId());
-            newEntity.setName(cardType.getName());
-            newEntity.setPrice(cardType.getPrice());
-            newEntity.setValue(cardType.getValue());
-            cardTypeRepository.save(newEntity);
-
-            return newEntity;
+        if (cardTypeRepository.existsById(cardType.getId())) {
+            return cardTypeRepository.save(cardType);
         } else {
-            throw new  InvalidConfigurationPropertyValueException("No card type record exist for given id", cardType, "");
+            throw new IllegalArgumentException("Not valid Id: " + cardType.getId());
         }
+
     }
 
     @Override
-    public void deleteCardTypeById(Long id) {
-        Optional<TravelCardTypeEntity> card = cardTypeRepository.findById(id);
-
-        if (card.isPresent()) {
-            TravelCardTypeEntity newEntity = card.get();
-            newEntity.setDeleted(false);
+    public void deleteCardTypeById(TravelCardTypeEntity cardType) {
+        if (cardTypeRepository.existsById(cardType.getId())) {
+            cardType.setDeleted(true);
+             cardTypeRepository.save(cardType);
         } else {
-            throw new InvalidConfigurationPropertyValueException("No card type record exist for given id", card, "");
+            throw new IllegalArgumentException("Not valid Id: " + cardType.getId());
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.ikubinfo.internship.service.serviceImpl;
 
 import com.ikubinfo.internship.entity.RouteTypeEntity;
+import com.ikubinfo.internship.entity.TravelCardTypeEntity;
 import com.ikubinfo.internship.repository.RouteTypeRepository;
 import com.ikubinfo.internship.service.RouteTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,12 @@ import java.util.Optional;
 public class RouteTypeServiceImpl implements RouteTypeService {
 
     @Autowired
-    RouteTypeRepository routeTypeRepository;
+    private RouteTypeRepository routeTypeRepository;
 
 
     @Override
     public List<RouteTypeEntity> getAllRouteTypes() {
-        List<RouteTypeEntity> routeTypes = routeTypeRepository.findAllValidRouteTypes();
+        List<RouteTypeEntity> routeTypes = routeTypeRepository.findByIsDeleted(false);
 
         if (routeTypes.size() > 0) {
             return routeTypes;
@@ -31,45 +32,38 @@ public class RouteTypeServiceImpl implements RouteTypeService {
 
     @Override
     public RouteTypeEntity getRouteTypeById(Long id) {
-        Optional<RouteTypeEntity> routeType = routeTypeRepository.findById(id);
+        Optional<RouteTypeEntity> cardType = routeTypeRepository.findById(id);
 
-        if (routeType.isPresent()) {
-            return routeType.get();
-        } else {
-            throw new InvalidConfigurationPropertyValueException("No route type record exist for given id", routeType, "");
-        }    }
-
-    @Override
-    public RouteTypeEntity updateRouteType(RouteTypeEntity routeType) {
-        Optional < RouteTypeEntity > route = this.routeTypeRepository.findById(routeType.getId());
-
-        if (route.isPresent()) {
-            RouteTypeEntity newEntity = route.get();
-            newEntity.setId(routeType.getId());
-            newEntity.setName(routeType.getName());
-            newEntity.setDescription(routeType.getDescription());
-            newEntity.setCode(routeType.getCode());
-            routeTypeRepository.save(newEntity);
-
-            return newEntity;
-        } else {
-            throw new  InvalidConfigurationPropertyValueException("No route type record exist for given id", routeType, "");
-        }    }
-
-    @Override
-    public RouteTypeEntity createRouteType(RouteTypeEntity routeType) {
-        return routeTypeRepository.save(routeType);
+        return cardType.orElseThrow(() -> new IllegalArgumentException("Not valid Id: " + id));
     }
 
     @Override
-    public void deleteRouteTypeById(Long id) {
-        Optional<RouteTypeEntity> route = routeTypeRepository.findById(id);
-
-        if (route.isPresent()) {
-            RouteTypeEntity newEntity = route.get();
-            newEntity.setDeleted(false);
+    public RouteTypeEntity updateRouteType(RouteTypeEntity routeType) {
+        if (routeTypeRepository.existsById(routeType.getId())) {
+            return routeTypeRepository.save(routeType);
         } else {
-            throw new InvalidConfigurationPropertyValueException("No route type record exist for given id", route, "");
+            throw new IllegalArgumentException("Not valid Id: " + routeType.getId());
+        }
+    }
+
+    @Override
+    public RouteTypeEntity createRouteType(RouteTypeEntity routeType) {
+
+        if (!routeTypeRepository.existsById(routeType.getId())) {
+            return routeTypeRepository.save(routeType);
+        }
+        else {
+            throw new IllegalArgumentException("Card type already exists: " + routeType.getId());
+        }
+    }
+
+    @Override
+    public void deleteRouteTypeById(RouteTypeEntity routeType) {
+        if (routeTypeRepository.existsById(routeType.getId())) {
+            routeType.setDeleted(true);
+            routeTypeRepository.save(routeType);
+        } else {
+            throw new IllegalArgumentException("Not valid Id: " + routeType.getId());
         }
     }
 }

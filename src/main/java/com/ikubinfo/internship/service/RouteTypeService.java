@@ -15,5 +15,5 @@ public interface RouteTypeService {
 
     RouteTypeEntity createRouteType(RouteTypeEntity routeType);
 
-    void deleteRouteTypeById(Long id);
+    void deleteRouteTypeById(RouteTypeEntity routeType);
 }

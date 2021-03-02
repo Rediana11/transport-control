@@ -14,5 +14,5 @@ public interface TravelCardTypeService {
 
     TravelCardTypeEntity createCardType(TravelCardTypeEntity cardType);
 
-    void deleteCardTypeById(Long id);
+    void deleteCardTypeById(TravelCardTypeEntity cardType);
 }
