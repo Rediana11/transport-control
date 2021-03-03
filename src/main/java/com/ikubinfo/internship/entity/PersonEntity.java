@@ -14,7 +14,7 @@ public class PersonEntity {
     private Long id;
 
     @ManyToMany(mappedBy = "persons")
-    Set<RoleEntity> roles= new HashSet<>();
+    Set<RoleEntity> roles = new HashSet<>();
 
     @OneToOne(mappedBy = "person")
     private TravelCardEntity travelCard;
@@ -25,16 +25,22 @@ public class PersonEntity {
     @Column(nullable = false, name = "last_name")
     private String lastName;
 
-    @Column( name = "date_birth")
+    @Column(length = 100)
+    private String username;
+
+    @Column(length = 100)
+    private String password;
+
+    @Column(name = "date_birth")
     private Date dateBirth;
 
-    @Column( length = 100)
+    @Column(length = 100)
     private String email;
 
-    @Column( name = "phone_no")
+    @Column(name = "phone_no")
     private int phoneNo;
 
-    @Column( length=100)
+    @Column(length = 100)
     private String address;
 
     @Column(name = "created_on")
@@ -103,6 +109,29 @@ public class PersonEntity {
         this.address = address;
     }
 
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Date getCreated_on() {
         return created_on;

@@ -1,11 +1,9 @@
 package com.ikubinfo.internship.service.serviceImpl;
 
 import com.ikubinfo.internship.entity.RouteEntity;
-import com.ikubinfo.internship.entity.TravelCardTypeEntity;
 import com.ikubinfo.internship.repository.RouteRepository;
 import com.ikubinfo.internship.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

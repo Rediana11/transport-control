@@ -1,7 +1,6 @@
 package com.ikubinfo.internship.service;
 
 import com.ikubinfo.internship.entity.RouteEntity;
-import com.ikubinfo.internship.entity.RouteTypeEntity;
 
 import java.util.List;
 

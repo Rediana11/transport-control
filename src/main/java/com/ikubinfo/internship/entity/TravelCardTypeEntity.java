@@ -1,9 +1,8 @@
 package com.ikubinfo.internship.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "travel_card_type")
@@ -17,10 +16,10 @@ public class TravelCardTypeEntity {
     private String name;
 
     @Column
-    private Double price;
+    private BigDecimal price;
 
-    @Column
-    private String value;
+    @Column(name="value_days")
+    private int valueDays;
 
     @Column(name = "created_on")
     private Date created_on;
@@ -48,22 +47,21 @@ public class TravelCardTypeEntity {
         this.name = name;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public String getValue() {
-        return value;
+    public int getValueDays() {
+        return valueDays;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setValueDays(int valueDays) {
+        this.valueDays = valueDays;
     }
-
 
     public Date getCreated_on() {
         return created_on;

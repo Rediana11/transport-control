@@ -1,6 +1,9 @@
 package com.ikubinfo.internship.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -14,12 +17,19 @@ public class TravelCardEntity {
     @Column(nullable = false)
     private String code;
 
+    @Column(name = "balance")
+    private BigDecimal balance;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private PersonEntity person;
 
-    @Column(name = "travel_card_type")
-    private String travelCardType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "travel_card_type_id")
+    private TravelCardTypeEntity travelCardType;
+
+    @Column(name = "activated_offer_date")
+    private LocalDateTime activatedOfferDate;
 
     @Column(name = "created_on")
     private Date created_on;
@@ -38,6 +48,21 @@ public class TravelCardEntity {
         this.id = id;
     }
 
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public PersonEntity getPerson() {
+        return person;
+    }
+
+    public void setPerson(PersonEntity person) {
+        this.person = person;
+    }
 
     public String getCode() {
         return code;
@@ -55,13 +80,20 @@ public class TravelCardEntity {
         this.person = user;
     }
 
-
-    public String getTravelCardType() {
+    public TravelCardTypeEntity getTravelCardType() {
         return travelCardType;
     }
 
-    public void setTravelCardType(String travelCardType) {
+    public void setTravelCardType(TravelCardTypeEntity travelCardType) {
         this.travelCardType = travelCardType;
+    }
+
+    public LocalDateTime getActivatedOfferDate() {
+        return activatedOfferDate;
+    }
+
+    public void setActivatedOfferDate(LocalDateTime activatedOfferDate) {
+        this.activatedOfferDate = activatedOfferDate;
     }
 
     public Date getCreated_on() {
