@@ -1,7 +1,6 @@
 package com.ikubinfo.internship.service;
 
 import com.ikubinfo.internship.entity.RouteTypeEntity;
-import com.ikubinfo.internship.entity.TravelCardTypeEntity;
 
 import java.util.List;
 

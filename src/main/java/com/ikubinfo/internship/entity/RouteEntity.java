@@ -1,6 +1,7 @@
 package com.ikubinfo.internship.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 @Entity

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,7 @@ public class RouteServiceImpl implements RouteService {
     @Override
     public RouteEntity updateRoute(RouteEntity route) {
         if (routeRepository.existsById(route.getId())) {
+            route.setUpdatedOn(new Date());
             return routeRepository.save(route);
         } else {
             throw new IllegalArgumentException("Not valid Id: " + route.getId());
@@ -48,10 +50,12 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public RouteEntity createRoute(RouteEntity route) {
+
         if (!routeRepository.existsById(route.getId())) {
             return routeRepository.save(route);
-        } else {
-            throw new IllegalArgumentException("Card type already exists: " + route.getId());
+        }
+      {
+            throw new IllegalArgumentException("Route already exists: " + route.getId());
         }
     }
 

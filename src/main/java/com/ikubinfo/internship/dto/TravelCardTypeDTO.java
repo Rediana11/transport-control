@@ -10,9 +10,9 @@ public class TravelCardTypeDTO {
 
     private Double price;
 
-    private String value;
+    private int valueDays;
 
-    private Date created_on;
+    private Date createdOn;
 
     private Date updatedOn;
 
@@ -34,20 +34,20 @@ public class TravelCardTypeDTO {
         this.price = price;
     }
 
-    public String getValue() {
-        return value;
+    public int getValueDays() {
+        return valueDays;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setValueDays(int valueDays) {
+        this.valueDays = valueDays;
     }
 
-    public Date getCreated_on() {
-        return created_on;
+    public Date getCreatedOn() {
+        return createdOn;
     }
 
-    public void setCreated_on(Date created_on) {
-        this.created_on = created_on;
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
 
     public Date getUpdatedOn() {

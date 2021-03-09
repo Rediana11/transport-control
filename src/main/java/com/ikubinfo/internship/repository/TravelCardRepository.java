@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TravelCardRepository extends JpaRepository<TravelCardEntity, Long> {
+public interface TravelCardRepository extends CommonRepository<TravelCardEntity>,JpaRepository<TravelCardEntity, Long> {
 
-    List<TravelCardEntity> findByIsDeleted(boolean deleted);
 
 }

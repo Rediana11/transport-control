@@ -2,6 +2,7 @@ package com.ikubinfo.internship.service;
 
 import com.ikubinfo.internship.entity.RouteEntity;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface RouteService {

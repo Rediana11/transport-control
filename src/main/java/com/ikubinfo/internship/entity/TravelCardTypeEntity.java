@@ -22,7 +22,7 @@ public class TravelCardTypeEntity {
     private int valueDays;
 
     @Column(name = "created_on")
-    private Date created_on;
+    private Date createdOn;
 
 
     @Column(name = "updated_on")
@@ -63,14 +63,14 @@ public class TravelCardTypeEntity {
         this.valueDays = valueDays;
     }
 
-    public Date getCreated_on() {
-        return created_on;
+
+    public Date getCreatedOn() {
+        return createdOn;
     }
 
-    public void setCreated_on(Date created_on) {
-        this.created_on = created_on;
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
-
 
     public Date getUpdatedOn() {
         return updatedOn;

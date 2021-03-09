@@ -8,8 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RouteTypeRepository extends JpaRepository<RouteTypeEntity, Long> {
+public interface RouteTypeRepository extends CommonRepository<RouteTypeEntity>, JpaRepository<RouteTypeEntity, Long> {
 
-  List<RouteTypeEntity> findByIsDeleted(boolean deleted);
 
 }

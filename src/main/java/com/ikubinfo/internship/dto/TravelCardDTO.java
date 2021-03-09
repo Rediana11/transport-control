@@ -1,5 +1,7 @@
 package com.ikubinfo.internship.dto;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class TravelCardDTO {
@@ -10,9 +12,13 @@ public class TravelCardDTO {
 
     private PersonDTO person;
 
-    private String travelCardType;
+    private BigDecimal balance;
 
-    private Date created_on;
+    private LocalDateTime activatedOfferDate;
+
+    private TravelCardTypeDTO travelCardType;
+
+    private Date createdOn;
 
     private Date updatedOn;
 
@@ -42,20 +48,20 @@ public class TravelCardDTO {
         this.person = person;
     }
 
-    public String getTravelCardType() {
+    public TravelCardTypeDTO getTravelCardType() {
         return travelCardType;
     }
 
-    public void setTravelCardType(String travelCardType) {
+    public void setTravelCardType(TravelCardTypeDTO travelCardType) {
         this.travelCardType = travelCardType;
     }
 
-    public Date getCreated_on() {
-        return created_on;
+    public Date getCreatedOn() {
+        return createdOn;
     }
 
-    public void setCreated_on(Date created_on) {
-        this.created_on = created_on;
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
 
     public Date getUpdatedOn() {
@@ -72,5 +78,21 @@ public class TravelCardDTO {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public LocalDateTime getActivatedOfferDate() {
+        return activatedOfferDate;
+    }
+
+    public void setActivatedOfferDate(LocalDateTime activatedOfferDate) {
+        this.activatedOfferDate = activatedOfferDate;
     }
 }
