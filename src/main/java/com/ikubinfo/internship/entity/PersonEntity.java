@@ -16,8 +16,8 @@ public class PersonEntity {
     @ManyToMany(mappedBy = "persons")
     Set<RoleEntity> roles = new HashSet<>();
 
-    @OneToOne(mappedBy = "person")
-    private TravelCardEntity travelCard;
+   /* @OneToOne(mappedBy = "person")
+    private TravelCardEntity travelCard;*/
 
     @Column(nullable = false, name = "first_name")
     private String firstName;
@@ -34,13 +34,13 @@ public class PersonEntity {
     @Column(name = "date_birth")
     private Date dateBirth;
 
-    @Column(length = 100)
+    @Column
     private String email;
 
     @Column(name = "phone_no")
     private int phoneNo;
 
-    @Column(length = 100)
+    @Column
     private String address;
 
     @Column(name = "created_on")
@@ -159,11 +159,4 @@ public class PersonEntity {
         isDeleted = deleted;
     }
 
-    public TravelCardEntity getTravelCard() {
-        return travelCard;
-    }
-
-    public void setTravelCard(TravelCardEntity travelCard) {
-        this.travelCard = travelCard;
-    }
 }

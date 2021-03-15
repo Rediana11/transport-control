@@ -27,7 +27,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
-    @ExceptionHandler(Exception.class)
+   /* @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> genericException(Exception ex) {
         ExceptionResponse response = new ExceptionResponse();
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -36,18 +36,29 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         logger.error("An error ocurred! ", response);
         return new ResponseEntity<ExceptionResponse>(response, response.getStatus());
-    }
+    }*/
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ExceptionResponse> resourceNotFound(IllegalArgumentException ex) {
+        ExceptionResponse response = new ExceptionResponse();
+        response.setStatus(HttpStatus.BAD_REQUEST);
+        response.setErrorMessage(ex.getLocalizedMessage());
+        response.setTimestamp(LocalDateTime.now());
 
-        return genericException(ex);
+        logger.error("An error ocurred! ", response);
+        return new ResponseEntity<ExceptionResponse>(response, response.getStatus());
     }
 
     @ExceptionHandler(ClassNotFoundException.class)
     public ResponseEntity<ExceptionResponse> classNotFound(ClassNotFoundException ex) {
 
-        return genericException(ex);
+        ExceptionResponse response = new ExceptionResponse();
+        response.setStatus(HttpStatus.BAD_REQUEST);
+        response.setErrorMessage(ex.getLocalizedMessage());
+        response.setTimestamp(LocalDateTime.now());
+
+        logger.error("An error ocurred! ", response);
+        return new ResponseEntity<ExceptionResponse>(response, response.getStatus());
     }
 
     @Override

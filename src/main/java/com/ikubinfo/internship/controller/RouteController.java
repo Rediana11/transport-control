@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("route")
+@RequestMapping("api/route")
 public class RouteController {
 
     @Autowired
@@ -37,13 +37,13 @@ public class RouteController {
         for (RouteEntity route : list) {
             routesDTO.add(mapper.routeToRouteDTO(route));
         }
-        return new ResponseEntity<List<RouteDTO>>(routesDTO, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<List<RouteDTO>>(routesDTO, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<RouteDTO> getRouteById(@PathVariable("id") Long id) {
 
-        return new ResponseEntity<RouteDTO>(mapper.routeToRouteDTO(routeService.getRouteById(id)), new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<RouteDTO>(mapper.routeToRouteDTO(routeService.getRouteById(id)), HttpStatus.OK);
     }
 
     @PostMapping

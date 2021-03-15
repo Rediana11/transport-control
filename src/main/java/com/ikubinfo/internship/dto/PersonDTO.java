@@ -1,12 +1,7 @@
 package com.ikubinfo.internship.dto;
 
-import com.ikubinfo.internship.entity.RoleEntity;
-import com.ikubinfo.internship.entity.TravelCardEntity;
-
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 public class PersonDTO {
