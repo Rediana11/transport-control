@@ -2,13 +2,14 @@ package com.ikubinfo.internship.dto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 
 public class PersonDTO {
 
     private Long id;
 
-    private List<RoleDTO> roles;
+    private Set<RoleDTO> roles;
 
     private TravelCardDTO travelCard;
 
@@ -42,11 +43,11 @@ public class PersonDTO {
         this.id = id;
     }
 
-    public List<RoleDTO> getRoles() {
+    public Set<RoleDTO> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<RoleDTO> roles) {
+    public void setRoles(Set<RoleDTO> roles) {
         this.roles = roles;
     }
 

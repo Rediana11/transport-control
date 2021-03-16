@@ -2,7 +2,7 @@ package com.ikubinfo.internship.controller;
 
 import com.ikubinfo.internship.dto.TravelCardTypeDTO;
 import com.ikubinfo.internship.entity.TravelCardTypeEntity;
-import com.ikubinfo.internship.mapping.TravelCardTypeMapper;
+import com.ikubinfo.internship.mapper.TravelCardTypeMapper;
 import com.ikubinfo.internship.service.TravelCardTypeService;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,44 +21,34 @@ public class TravelCardTypeController {
     private TravelCardTypeService cardTypeService;
 
 
-    private TravelCardTypeMapper mapper
-            = Mappers.getMapper(TravelCardTypeMapper.class);
-
-
-    @GetMapping("/list")
+    @GetMapping(value = "/list")
     public ResponseEntity<List<TravelCardTypeDTO>> getAllCardTypes() {
-        List<TravelCardTypeEntity> list = cardTypeService.getAllCardTypes();
-        List<TravelCardTypeDTO> cardTypeDTOS = new ArrayList<>();
-        for (TravelCardTypeEntity card : list) {
-            cardTypeDTOS.add(mapper.cardTypeToCardTypeDTO(card));
-        }
-        return new ResponseEntity<List<TravelCardTypeDTO>>(cardTypeDTOS, HttpStatus.OK);
+        List<TravelCardTypeDTO> list = cardTypeService.getAllCardTypes();
+
+        return new ResponseEntity<List<TravelCardTypeDTO>>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}",produces = {"application/json"})
     public ResponseEntity<TravelCardTypeDTO> getCardTypeById(@PathVariable("id") Long id) {
 
-        return new ResponseEntity<TravelCardTypeDTO>(mapper.cardTypeToCardTypeDTO( cardTypeService.getCardTypeById(id)), HttpStatus.OK);
+        return new ResponseEntity<TravelCardTypeDTO>(cardTypeService.getCardTypeById(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping(value = "create", produces = {"application/json"},consumes = {"application/json"})
     public ResponseEntity<TravelCardTypeDTO> createCardType(@RequestBody TravelCardTypeDTO cardType) {
-        TravelCardTypeEntity card = mapper.cardTypeDTOToCardType(cardType);
-        TravelCardTypeEntity cardTypeCreated = cardTypeService.createCardType(card);
 
-        return ResponseEntity.ok().body(mapper.cardTypeToCardTypeDTO(cardTypeCreated));
+        return ResponseEntity.ok().body(cardTypeService.createCardType(cardType));
     }
 
-    @PutMapping("/update")
+    @PutMapping(value = "/update",produces = {"application/json"}, consumes = {"application/json"})
     public ResponseEntity<TravelCardTypeDTO> updateCardType(@RequestBody TravelCardTypeDTO cardType) {
-        TravelCardTypeEntity card = mapper.cardTypeDTOToCardType(cardType);
-        TravelCardTypeEntity cardTypeCreated = cardTypeService.updateCardType(card);
 
-        return ResponseEntity.ok().body(mapper.cardTypeToCardTypeDTO(cardTypeCreated));    }
+        return ResponseEntity.ok().body(cardTypeService.updateCardType(cardType));
+    }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", consumes = "application/json")
     public HttpStatus deleteCardTypeById(@RequestBody TravelCardTypeDTO cardType) {
-        cardTypeService.deleteCardTypeById(mapper.cardTypeDTOToCardType(cardType));
+        cardTypeService.deleteCardTypeById(cardType);
         return HttpStatus.FORBIDDEN;
     }
 }

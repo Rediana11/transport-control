@@ -1,18 +1,19 @@
 package com.ikubinfo.internship.service;
 
+import com.ikubinfo.internship.dto.TravelCardTypeDTO;
 import com.ikubinfo.internship.entity.TravelCardTypeEntity;
 
 import java.util.List;
 
 public interface TravelCardTypeService {
 
-    List<TravelCardTypeEntity> getAllCardTypes();
+    List<TravelCardTypeDTO> getAllCardTypes();
 
-    TravelCardTypeEntity getCardTypeById(Long id);
+    TravelCardTypeDTO getCardTypeById(Long id);
 
-    TravelCardTypeEntity updateCardType(TravelCardTypeEntity cardType);
+    TravelCardTypeDTO updateCardType(TravelCardTypeDTO cardType);
 
-    TravelCardTypeEntity createCardType(TravelCardTypeEntity cardType);
+    TravelCardTypeDTO createCardType(TravelCardTypeDTO cardType);
 
-    void deleteCardTypeById(TravelCardTypeEntity cardType);
+    void deleteCardTypeById(TravelCardTypeDTO cardType);
 }

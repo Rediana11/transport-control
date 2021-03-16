@@ -1,5 +1,6 @@
 package com.ikubinfo.internship.service;
 
+import com.ikubinfo.internship.dto.RouteDTO;
 import com.ikubinfo.internship.entity.RouteEntity;
 
 import java.sql.SQLException;
@@ -7,13 +8,13 @@ import java.util.List;
 
 public interface RouteService {
 
-    List<RouteEntity> getAllRoutes();
+    List<RouteDTO> getAllRoutes();
 
-    RouteEntity getRouteById(Long id);
+    RouteDTO getRouteById(Long id);
 
-    RouteEntity updateRoute(RouteEntity route);
+    RouteDTO updateRoute(RouteDTO route);
 
-    RouteEntity createRoute(RouteEntity route);
+    RouteDTO createRoute(RouteDTO route);
 
-    void deleteRouteById(RouteEntity route);
+    void deleteRouteById(RouteDTO route);
 }

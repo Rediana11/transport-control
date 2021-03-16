@@ -33,10 +33,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         response.setErrorMessage(ex.getLocalizedMessage());
         response.setTimestamp(LocalDateTime.now());
-
         logger.error("An error ocurred! ", response);
         return new ResponseEntity<ExceptionResponse>(response, response.getStatus());
     }*/
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleEntityNotFound(EntityNotFoundException ex) {
+        ExceptionResponse response = new ExceptionResponse();
+        response.setStatus(HttpStatus.NOT_FOUND);
+        response.setErrorMessage(ex.getLocalizedMessage());
+        response.setTimestamp(LocalDateTime.now());
+        logger.error("An error ocurred! ", response);
+        return new ResponseEntity<ExceptionResponse>(response, response.getStatus());
+    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ExceptionResponse> resourceNotFound(IllegalArgumentException ex) {

@@ -1,18 +1,19 @@
 package com.ikubinfo.internship.service;
 
+import com.ikubinfo.internship.dto.RouteTypeDTO;
 import com.ikubinfo.internship.entity.RouteTypeEntity;
 
 import java.util.List;
 
 public interface RouteTypeService {
 
-    List<RouteTypeEntity> getAllRouteTypes();
+    List<RouteTypeDTO> getAllRouteTypes();
 
-    RouteTypeEntity getRouteTypeById(Long id);
+    RouteTypeDTO getRouteTypeById(Long id);
 
-    RouteTypeEntity updateRouteType(RouteTypeEntity routeType);
+    RouteTypeDTO updateRouteType(RouteTypeDTO routeType);
 
-    RouteTypeEntity createRouteType(RouteTypeEntity routeType);
+    RouteTypeDTO createRouteType(RouteTypeDTO routeType);
 
-    void deleteRouteTypeById(RouteTypeEntity routeType);
+    void deleteRouteTypeById(RouteTypeDTO routeType);
 }

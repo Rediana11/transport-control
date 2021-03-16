@@ -4,8 +4,9 @@ import com.ikubinfo.internship.dto.PersonDTO;
 import com.ikubinfo.internship.dto.RoleDTO;
 import com.ikubinfo.internship.entity.PersonEntity;
 import com.ikubinfo.internship.entity.RoleEntity;
-import com.ikubinfo.internship.mapping.PersonMapper;
-import com.ikubinfo.internship.mapping.RoleMapper;
+import com.ikubinfo.internship.exception.EntityNotFoundException;
+import com.ikubinfo.internship.mapper.PersonMapper;
+import com.ikubinfo.internship.mapper.RoleMapper;
 import com.ikubinfo.internship.repository.PersonRepository;
 import com.ikubinfo.internship.repository.RoleRepository;
 import com.ikubinfo.internship.security.model.SecurityUser;
@@ -44,7 +45,7 @@ public class UserServiceImpl  implements UserDetailsService {
 
     public PersonDTO loadPersonByUsername(String s){
         PersonEntity personEntity =  personRepository.findPersonByUsername(s);
-        return mapper.personToPersonDTO(personEntity);
+        return mapper.toDto(personEntity);
     }
 
     public PersonDTO createUser(PersonDTO person) {
@@ -52,14 +53,14 @@ public class UserServiceImpl  implements UserDetailsService {
 
             List<RoleDTO> roles = new ArrayList<>();
             RoleEntity roleEntity = roleRepository.findByCode("2R");
-            roles.add(roleMapper.roleToRoleDTO(roleEntity));
-            person.setPassword(bCryptPasswordEncoder.encode(mapper.personDTOToPerson(person).getPassword()));
-            person.setRoles(roles);
-            PersonEntity personEntity = personRepository.save(mapper.personDTOToPerson(person));
-            return mapper.personToPersonDTO(personEntity);
+            roles.add(roleMapper.toDto(roleEntity));
+            person.setPassword(bCryptPasswordEncoder.encode(mapper.toEntity(person).getPassword()));
+            //person.setRoles(roles);
+            PersonEntity personEntity = personRepository.save(mapper.toEntity(person));
+            return mapper.toDto(personEntity);
         }
         else {
-            throw new IllegalArgumentException("User already exists: " + person.getId());
+            throw new EntityNotFoundException("User already exists: " + person.getId());
         }
 
     }

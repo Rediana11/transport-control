@@ -1,8 +1,12 @@
 package com.ikubinfo.internship.service.serviceImpl;
 
+import com.ikubinfo.internship.dto.RouteDTO;
 import com.ikubinfo.internship.entity.RouteEntity;
+import com.ikubinfo.internship.exception.EntityNotFoundException;
+import com.ikubinfo.internship.mapper.RouteMapper;
 import com.ikubinfo.internship.repository.RouteRepository;
 import com.ikubinfo.internship.service.RouteService;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,55 +21,57 @@ public class RouteServiceImpl implements RouteService {
     @Autowired
     private RouteRepository routeRepository;
 
+    private RouteMapper mapper
+            = Mappers.getMapper(RouteMapper.class);
+
 
     @Override
-    public List<RouteEntity> getAllRoutes() {
+    public List<RouteDTO> getAllRoutes() {
         List<RouteEntity> routes = routeRepository.findByIsDeleted(false);
 
-        if (routes.size() > 0) {
-            return routes;
-        } else {
-            return new ArrayList<RouteEntity>();
-        }
+        return mapper.toDto(routes);
     }
 
     @Override
-    public RouteEntity getRouteById(Long id) {
+    public RouteDTO getRouteById(Long id) {
 
         Optional<RouteEntity> route = routeRepository.findById(id);
 
-        return route.orElseThrow(() -> new IllegalArgumentException("Not valid Id: " + id));
+        return mapper.toDto(route.orElseThrow(() -> new EntityNotFoundException("Not valid Id: " + id)));
 
     }
 
     @Override
-    public RouteEntity updateRoute(RouteEntity route) {
+    public RouteDTO updateRoute(RouteDTO route) {
         if (routeRepository.existsById(route.getId())) {
             route.setUpdatedOn(new Date());
-            return routeRepository.save(route);
+            RouteEntity updatedRoute = routeRepository.save(mapper.toEntity(route));
+            return mapper.toDto(updatedRoute);
         } else {
-            throw new IllegalArgumentException("Not valid Id: " + route.getId());
+            throw new EntityNotFoundException("Not valid Id: " + route.getId());
         }
     }
 
     @Override
-    public RouteEntity createRoute(RouteEntity route) {
+    public RouteDTO createRoute(RouteDTO route) {
 
         if (!routeRepository.existsById(route.getId())) {
-            return routeRepository.save(route);
+            route.setCreated_on(new Date());
+            RouteEntity newRoute  = routeRepository.save(mapper.toEntity(route));
+            return mapper.toDto(newRoute);
         }
-      {
-            throw new IllegalArgumentException("Route already exists: " + route.getId());
+        {
+            throw new EntityNotFoundException("Route already exists: " + route.getId());
         }
     }
 
     @Override
-    public void deleteRouteById(RouteEntity route) {
+    public void deleteRouteById(RouteDTO route) {
         if (routeRepository.existsById(route.getId())) {
             route.setDeleted(true);
-            routeRepository.save(route);
+            routeRepository.save(mapper.toEntity(route));
         } else {
-            throw new IllegalArgumentException("Not valid Id: " + route.getId());
+            throw new EntityNotFoundException("Not valid Id: " + route.getId());
         }
     }
 }

@@ -83,7 +83,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/js/**",
                         "/images/**","/swagger-ui/**",
                         "/swagger-resources/**",
-                        "/v3/api-docs/**");
+                        "/v3/api-docs/**",
+                        "/api/route/list");
     }
 
     // Configure security settings
@@ -108,9 +109,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/route/list")
-                .hasAnyRole("ADMIN")
+                .hasAuthority("ADMIN")
                 .antMatchers("/api/create-user")
-                .hasAnyRole("ADMIN")
+                .hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

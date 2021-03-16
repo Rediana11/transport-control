@@ -1,9 +1,11 @@
 package com.ikubinfo.internship.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "role")
@@ -22,13 +24,16 @@ public class RoleEntity {
     @Column(length = 300)
     private String description;
 
-    @ManyToMany
+   /* @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinTable(
             name = "person_role",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "person_id"))
-    private Set<PersonEntity> persons = new HashSet<>();
-
+    private Set<PersonEntity> persons = new HashSet<>();*/
 
     @Column(name = "created_on")
     private Date created_on;
@@ -63,6 +68,14 @@ public class RoleEntity {
         this.code = code;
     }
 
+ /*   public Set<PersonEntity> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(Set<PersonEntity> persons) {
+        this.persons = persons;
+    }
+*/
     public String getDescription() {
         return description;
     }
@@ -70,7 +83,6 @@ public class RoleEntity {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     public Date getCreated_on() {
         return created_on;

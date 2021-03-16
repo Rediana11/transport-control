@@ -1,11 +1,6 @@
 package com.ikubinfo.internship.dto;
 
-import com.ikubinfo.internship.entity.PersonEntity;
-
-import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class RoleDTO {
@@ -18,7 +13,7 @@ public class RoleDTO {
 
     private String description;
 
-    private List<PersonDTO> persons;
+    private Set<PersonDTO> persons;
 
     private Date created_on;
 
@@ -58,11 +53,11 @@ public class RoleDTO {
         this.description = description;
     }
 
-    public List<PersonDTO> getPersons() {
+    public Set<PersonDTO> getPersons() {
         return persons;
     }
 
-    public void setPersons(List<PersonDTO> persons) {
+    public void setPersons(Set<PersonDTO> persons) {
         this.persons = persons;
     }
 

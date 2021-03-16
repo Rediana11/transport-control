@@ -1,5 +1,6 @@
 package com.ikubinfo.internship.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class TravelCardTypeDTO {
@@ -8,7 +9,7 @@ public class TravelCardTypeDTO {
 
     private String name;
 
-    private Double price;
+    private BigDecimal price;
 
     private int valueDays;
 
@@ -26,11 +27,11 @@ public class TravelCardTypeDTO {
         this.id = id;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

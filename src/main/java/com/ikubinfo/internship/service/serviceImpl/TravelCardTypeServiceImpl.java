@@ -1,13 +1,17 @@
 package com.ikubinfo.internship.service.serviceImpl;
 
+import com.ikubinfo.internship.dto.TravelCardTypeDTO;
 import com.ikubinfo.internship.entity.TravelCardTypeEntity;
+import com.ikubinfo.internship.exception.EntityNotFoundException;
+import com.ikubinfo.internship.mapper.TravelCardTypeMapper;
 import com.ikubinfo.internship.repository.TravelCardTypeRepository;
 import com.ikubinfo.internship.service.TravelCardTypeService;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,53 +21,54 @@ public class TravelCardTypeServiceImpl implements TravelCardTypeService {
     @Autowired
     private TravelCardTypeRepository cardTypeRepository;
 
-    @Override
-    public List<TravelCardTypeEntity> getAllCardTypes() {
-        List<TravelCardTypeEntity> cardTypes = cardTypeRepository.findByIsDeleted(false);
+    private TravelCardTypeMapper mapper
+            = Mappers.getMapper(TravelCardTypeMapper.class);
 
-        if (cardTypes.size() > 0) {
-            return cardTypes;
-        } else {
-            return new ArrayList<TravelCardTypeEntity>();
-        }
+    @Override
+    public List<TravelCardTypeDTO> getAllCardTypes() {
+        List<TravelCardTypeEntity> cardTypes = cardTypeRepository.findByIsDeleted(false);
+        return mapper.toDto(cardTypes);
+
     }
 
     @Override
-    public TravelCardTypeEntity getCardTypeById(Long id) {
+    public TravelCardTypeDTO getCardTypeById(Long id) {
         Optional<TravelCardTypeEntity> cardType = cardTypeRepository.findById(id);
 
-        return cardType.orElseThrow(() -> new IllegalArgumentException("Not valid Id: " + id));
+        return mapper.toDto(cardType.orElseThrow(() -> new EntityNotFoundException("Not valid Id: " + id)));
 
     }
 
     @Override
-    public TravelCardTypeEntity createCardType(TravelCardTypeEntity cardType) {
+    public TravelCardTypeDTO createCardType(TravelCardTypeDTO cardType) {
         if (!cardTypeRepository.existsById(cardType.getId())) {
-            return cardTypeRepository.save(cardType);
-        }
-        else {
-            throw new IllegalArgumentException("Card type already exists: " + cardType.getId());
+            TravelCardTypeEntity updatedCardType = cardTypeRepository.save(mapper.toEntity(cardType));
+            cardType.setCreatedOn(new Date());
+            return mapper.toDto(updatedCardType);        } else {
+            throw new EntityNotFoundException("Card type already exists: " + cardType.getId());
         }
 
     }
 
     @Override
-    public TravelCardTypeEntity updateCardType(TravelCardTypeEntity cardType) {
+    public TravelCardTypeDTO updateCardType(TravelCardTypeDTO cardType) {
         if (cardTypeRepository.existsById(cardType.getId())) {
-            return cardTypeRepository.save(cardType);
+            TravelCardTypeEntity updatedCardType = cardTypeRepository.save(mapper.toEntity(cardType));
+            cardType.setUpdatedOn(new Date());
+            return mapper.toDto(updatedCardType);
         } else {
-            throw new IllegalArgumentException("Not valid Id: " + cardType.getId());
+            throw new EntityNotFoundException("Not valid Id: " + cardType.getId());
         }
 
     }
 
     @Override
-    public void deleteCardTypeById(TravelCardTypeEntity cardType) {
+    public void deleteCardTypeById(TravelCardTypeDTO cardType) {
         if (cardTypeRepository.existsById(cardType.getId())) {
             cardType.setDeleted(true);
-             cardTypeRepository.save(cardType);
+            cardTypeRepository.save(mapper.toEntity(cardType));
         } else {
-            throw new IllegalArgumentException("Not valid Id: " + cardType.getId());
+            throw new EntityNotFoundException("Not valid Id: " + cardType.getId());
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.ikubinfo.internship.entity;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -13,11 +15,12 @@ public class PersonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(mappedBy = "persons")
+    @ManyToMany( fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     Set<RoleEntity> roles = new HashSet<>();
-
-   /* @OneToOne(mappedBy = "person")
-    private TravelCardEntity travelCard;*/
 
     @Column(nullable = false, name = "first_name")
     private String firstName;

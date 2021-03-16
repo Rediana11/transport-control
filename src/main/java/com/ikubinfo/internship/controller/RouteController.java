@@ -1,21 +1,13 @@
 package com.ikubinfo.internship.controller;
 
 import com.ikubinfo.internship.dto.RouteDTO;
-import com.ikubinfo.internship.entity.RouteEntity;
-import com.ikubinfo.internship.mapping.RouteMapper;
 import com.ikubinfo.internship.service.RouteService;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/route")
@@ -24,47 +16,37 @@ public class RouteController {
     @Autowired
     private RouteService routeService;
 
-    private RouteMapper mapper
-            = Mappers.getMapper(RouteMapper.class);
 
-
-
-    @GetMapping("/list")
+    @GetMapping(value = "/list", produces = {"application/json"})
     public ResponseEntity<List<RouteDTO>> getAllRoutes() {
 
-        List<RouteEntity> list = routeService.getAllRoutes();
-        List<RouteDTO> routesDTO = new ArrayList<>();
-        for (RouteEntity route : list) {
-            routesDTO.add(mapper.routeToRouteDTO(route));
-        }
-        return new ResponseEntity<List<RouteDTO>>(routesDTO, HttpStatus.OK);
+        List<RouteDTO> list = routeService.getAllRoutes();
+        return new ResponseEntity<List<RouteDTO>>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = {"application/json"})
     public ResponseEntity<RouteDTO> getRouteById(@PathVariable("id") Long id) {
 
-        return new ResponseEntity<RouteDTO>(mapper.routeToRouteDTO(routeService.getRouteById(id)), HttpStatus.OK);
+        return new ResponseEntity<RouteDTO>(routeService.getRouteById(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping(value = "create", consumes = {"application/json"}, produces = "application/json")
     public ResponseEntity<RouteDTO> createRoute(@RequestBody RouteDTO routeDTO) {
-        RouteEntity route = mapper.routeDTOToRoute(routeDTO);
-        RouteEntity routeCreated = routeService.createRoute(route);
+        RouteDTO routeCreated = routeService.createRoute(routeDTO);
 
-        return ResponseEntity.ok().body(mapper.routeToRouteDTO(routeCreated));
+        return ResponseEntity.ok().body(routeCreated);
     }
 
-    @PutMapping("/update")
+    @PutMapping(value = "/update", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<RouteDTO> updateRoute(@RequestBody RouteDTO routeDTO) {
-        RouteEntity route = mapper.routeDTOToRoute(routeDTO);
-        RouteEntity routeCreated = routeService.updateRoute(route);
-        return ResponseEntity.ok().body(mapper.routeToRouteDTO(routeCreated));
+        RouteDTO routeCreated = routeService.updateRoute(routeDTO);
+        return ResponseEntity.ok().body(routeCreated);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}",consumes = {"application/json"})
     public HttpStatus deleteRouteById(@RequestBody RouteDTO route) {
 
-        routeService.deleteRouteById(mapper.routeDTOToRoute(route));
+        routeService.deleteRouteById(route);
         return HttpStatus.FORBIDDEN;
     }
 

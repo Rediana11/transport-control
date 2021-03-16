@@ -2,8 +2,6 @@ package com.ikubinfo.internship.controller;
 
 import com.ikubinfo.internship.dto.AuthDTO;
 import com.ikubinfo.internship.dto.PersonDTO;
-import com.ikubinfo.internship.dto.RouteTypeDTO;
-import com.ikubinfo.internship.entity.RouteTypeEntity;
 import com.ikubinfo.internship.service.serviceImpl.AuthService;
 import com.ikubinfo.internship.service.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,7 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login",produces = {"application/json"},consumes = {"application/json"})
     public ResponseEntity<PersonDTO> createAuthenticationToken(@RequestBody AuthDTO authDTO) throws Exception {
 
         HttpHeaders headers = new HttpHeaders();
@@ -34,7 +32,7 @@ public class UserController {
       return new ResponseEntity<>((userService.loadPersonByUsername(authDTO.getUsername())),headers, HttpStatus.OK);
     }
 
-    @PostMapping("/create-user")
+    @PostMapping(value = "/create-user",produces = {"application/json"},consumes = {"application/json"})
     public ResponseEntity<PersonDTO> createPerson(@RequestBody PersonDTO personDTO) {
         return ResponseEntity.ok().body(userService.createUser(personDTO));
     }
