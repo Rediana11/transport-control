@@ -13,8 +13,6 @@ public class RoleDTO {
 
     private String description;
 
-    private Set<PersonDTO> persons;
-
     private Date created_on;
 
     private Date updatedOn;
@@ -51,14 +49,6 @@ public class RoleDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<PersonDTO> getPersons() {
-        return persons;
-    }
-
-    public void setPersons(Set<PersonDTO> persons) {
-        this.persons = persons;
     }
 
     public Date getCreated_on() {

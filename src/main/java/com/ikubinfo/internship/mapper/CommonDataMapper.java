@@ -2,7 +2,7 @@ package com.ikubinfo.internship.mapper;
 
 import java.util.List;
 
-public interface DataMapper<D, E> {
+public interface CommonDataMapper<D, E> {
 
     E toEntity(D dto);
 

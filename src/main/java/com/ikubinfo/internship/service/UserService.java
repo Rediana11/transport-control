@@ -1,4 +1,4 @@
-package com.ikubinfo.internship.service.serviceImpl;
+package com.ikubinfo.internship.service;
 
 import com.ikubinfo.internship.dto.PersonDTO;
 import com.ikubinfo.internship.dto.RoleDTO;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class UserServiceImpl  implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private PersonRepository personRepository;
@@ -49,19 +49,16 @@ public class UserServiceImpl  implements UserDetailsService {
     }
 
     public PersonDTO createUser(PersonDTO person) {
-        if (!personRepository.existsById(person.getId())) {
 
-            List<RoleDTO> roles = new ArrayList<>();
+            Set<RoleDTO> roles = new HashSet<>();
             RoleEntity roleEntity = roleRepository.findByCode("2R");
             roles.add(roleMapper.toDto(roleEntity));
             person.setPassword(bCryptPasswordEncoder.encode(mapper.toEntity(person).getPassword()));
-            //person.setRoles(roles);
+            person.setRoles(roles);
             PersonEntity personEntity = personRepository.save(mapper.toEntity(person));
             return mapper.toDto(personEntity);
         }
-        else {
-            throw new EntityNotFoundException("User already exists: " + person.getId());
-        }
 
-    }
+
+
 }

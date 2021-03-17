@@ -84,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/images/**","/swagger-ui/**",
                         "/swagger-resources/**",
                         "/v3/api-docs/**",
-                        "/api/route/list");
+                        "/api/travel-card/check");
     }
 
     // Configure security settings
@@ -108,7 +108,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/route/list")
+                .antMatchers("/api/travel-card/update")
+                .hasAuthority("OPERATOR")
+                .antMatchers("/api/travel-card/create")
+                .hasAuthority("ADMIN")
+                .antMatchers("/api/travel-card/delete/{^[\\d]$}")
+                .hasAuthority("ADMIN")
+                .antMatchers("/api/route-type/update")
+                .hasAuthority("ADMIN")
+                .antMatchers("/api/route-type/create")
+                .hasAuthority("ADMIN")
+                .antMatchers("/api/route-type/{^[\\d]$}")
+                .hasAuthority("ADMIN")
+                .antMatchers("/api/route-type/delete/{^[\\d]$}")
+                .hasAuthority("ADMIN")
+                .antMatchers("/api/route-type/list")
+                .hasAuthority("ADMIN")
+                .antMatchers("/api/card-type/**")
+                .hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/route/**")
                 .hasAuthority("ADMIN")
                 .antMatchers("/api/create-user")
                 .hasAuthority("ADMIN")

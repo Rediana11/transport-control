@@ -27,7 +27,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
-   /* @ExceptionHandler(Exception.class)
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> genericException(Exception ex) {
         ExceptionResponse response = new ExceptionResponse();
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -35,7 +35,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         response.setTimestamp(LocalDateTime.now());
         logger.error("An error ocurred! ", response);
         return new ResponseEntity<ExceptionResponse>(response, response.getStatus());
-    }*/
+    }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ExceptionResponse> handleEntityNotFound(EntityNotFoundException ex) {

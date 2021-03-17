@@ -5,6 +5,6 @@ import com.ikubinfo.internship.entity.PersonEntity;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface PersonMapper extends DataMapper<PersonDTO,PersonEntity>{
+public interface PersonMapper extends CommonDataMapper<PersonDTO,PersonEntity> {
 
 }

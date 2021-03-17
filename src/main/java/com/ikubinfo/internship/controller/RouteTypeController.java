@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("route-type")
+@RequestMapping("/api/route-type")
 public class RouteTypeController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class RouteTypeController {
         return new ResponseEntity<RouteTypeDTO>(routeTypeService.getRouteTypeById(id), new HttpHeaders(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "create", consumes = {"application/json"}, produces = {"application/json"})
+    @PostMapping(value = "/create", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<RouteTypeDTO> createRouteType(@RequestBody RouteTypeDTO routeTypeDTO) {
         return ResponseEntity.ok().body(routeTypeService.createRouteType(routeTypeDTO));
     }
@@ -41,7 +41,7 @@ public class RouteTypeController {
         return ResponseEntity.ok().body(routeTypeService.updateRouteType(routeTypeDTO));
     }
 
-    @DeleteMapping(value = "/{id}",consumes = {"application/json"})
+    @DeleteMapping(value = "/delete/{id}",consumes = {"application/json"})
     public HttpStatus deleteRouteTypeById(@RequestBody RouteTypeDTO routeTypeDTO) {
         routeTypeService.deleteRouteTypeById(routeTypeDTO);
         return HttpStatus.FORBIDDEN;

@@ -1,4 +1,4 @@
-package com.ikubinfo.internship.service.serviceImpl;
+package com.ikubinfo.internship.service;
 
 import com.ikubinfo.internship.dto.AuthDTO;
 import com.ikubinfo.internship.entity.PersonEntity;

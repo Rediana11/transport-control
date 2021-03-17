@@ -5,5 +5,5 @@ import com.ikubinfo.internship.entity.RoleEntity;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface RoleMapper extends DataMapper<RoleDTO,RoleEntity>{
+public interface RoleMapper extends CommonDataMapper<RoleDTO,RoleEntity> {
 }

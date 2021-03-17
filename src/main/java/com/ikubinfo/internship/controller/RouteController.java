@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/route")
+@RequestMapping("/api/route")
 public class RouteController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class RouteController {
         return new ResponseEntity<RouteDTO>(routeService.getRouteById(id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "create", consumes = {"application/json"}, produces = "application/json")
+    @PostMapping(value = "/create", consumes = {"application/json"}, produces = "application/json")
     public ResponseEntity<RouteDTO> createRoute(@RequestBody RouteDTO routeDTO) {
         RouteDTO routeCreated = routeService.createRoute(routeDTO);
 
@@ -43,7 +43,7 @@ public class RouteController {
         return ResponseEntity.ok().body(routeCreated);
     }
 
-    @DeleteMapping(value = "/{id}",consumes = {"application/json"})
+    @DeleteMapping(value = "/delete/{id}",consumes = {"application/json"})
     public HttpStatus deleteRouteById(@RequestBody RouteDTO route) {
 
         routeService.deleteRouteById(route);

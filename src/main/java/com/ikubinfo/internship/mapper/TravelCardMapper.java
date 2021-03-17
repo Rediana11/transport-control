@@ -4,8 +4,6 @@ import com.ikubinfo.internship.dto.TravelCardDTO;
 import com.ikubinfo.internship.entity.TravelCardEntity;
 import org.mapstruct.Mapper;
 
-import java.util.List;
-
 @Mapper
-public interface TravelCardMapper extends DataMapper<TravelCardDTO,TravelCardEntity>{
+public interface TravelCardMapper extends CommonDataMapper<TravelCardDTO,TravelCardEntity> {
 }

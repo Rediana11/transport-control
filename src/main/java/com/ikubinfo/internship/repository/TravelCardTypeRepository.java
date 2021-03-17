@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface TravelCardTypeRepository extends CommonRepository<TravelCardTypeEntity>, JpaRepository<TravelCardTypeEntity, Long> {
 
 
+    TravelCardTypeEntity findByName(String name);
 }

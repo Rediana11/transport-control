@@ -2,8 +2,8 @@ package com.ikubinfo.internship.controller;
 
 import com.ikubinfo.internship.dto.AuthDTO;
 import com.ikubinfo.internship.dto.PersonDTO;
-import com.ikubinfo.internship.service.serviceImpl.AuthService;
-import com.ikubinfo.internship.service.serviceImpl.UserServiceImpl;
+import com.ikubinfo.internship.service.AuthService;
+import com.ikubinfo.internship.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class UserController {
     private AuthService authService;
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @PostMapping(value = "/login",produces = {"application/json"},consumes = {"application/json"})
     public ResponseEntity<PersonDTO> createAuthenticationToken(@RequestBody AuthDTO authDTO) throws Exception {

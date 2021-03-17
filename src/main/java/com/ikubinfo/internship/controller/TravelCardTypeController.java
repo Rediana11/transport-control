@@ -1,20 +1,16 @@
 package com.ikubinfo.internship.controller;
 
 import com.ikubinfo.internship.dto.TravelCardTypeDTO;
-import com.ikubinfo.internship.entity.TravelCardTypeEntity;
-import com.ikubinfo.internship.mapper.TravelCardTypeMapper;
 import com.ikubinfo.internship.service.TravelCardTypeService;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("card-type")
+@RequestMapping("/api/card-type")
 public class TravelCardTypeController {
 
     @Autowired
@@ -34,7 +30,7 @@ public class TravelCardTypeController {
         return new ResponseEntity<TravelCardTypeDTO>(cardTypeService.getCardTypeById(id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "create", produces = {"application/json"},consumes = {"application/json"})
+    @PostMapping(value = "/create", produces = {"application/json"},consumes = {"application/json"})
     public ResponseEntity<TravelCardTypeDTO> createCardType(@RequestBody TravelCardTypeDTO cardType) {
 
         return ResponseEntity.ok().body(cardTypeService.createCardType(cardType));
@@ -46,7 +42,7 @@ public class TravelCardTypeController {
         return ResponseEntity.ok().body(cardTypeService.updateCardType(cardType));
     }
 
-    @DeleteMapping(value = "/{id}", consumes = "application/json")
+    @DeleteMapping(value = "/delete/{id}", consumes = "application/json")
     public HttpStatus deleteCardTypeById(@RequestBody TravelCardTypeDTO cardType) {
         cardTypeService.deleteCardTypeById(cardType);
         return HttpStatus.FORBIDDEN;
