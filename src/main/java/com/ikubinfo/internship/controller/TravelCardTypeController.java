@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class TravelCardTypeController {
     }
 
     @PostMapping(value = "/create", produces = {"application/json"},consumes = {"application/json"})
-    public ResponseEntity<TravelCardTypeDTO> createCardType(@RequestBody TravelCardTypeDTO cardType) {
+    public ResponseEntity<TravelCardTypeDTO> createCardType(@Valid @RequestBody TravelCardTypeDTO cardType) {
 
         return ResponseEntity.ok().body(cardTypeService.createCardType(cardType));
     }

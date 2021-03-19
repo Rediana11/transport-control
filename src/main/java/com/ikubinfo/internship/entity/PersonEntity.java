@@ -1,8 +1,7 @@
 package com.ikubinfo.internship.entity;
 
-import com.fasterxml.jackson.annotation.*;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,15 +22,19 @@ public class PersonEntity {
     Set<RoleEntity> roles = new HashSet<>();
 
     @Column(nullable = false, name = "first_name")
+    @NotBlank(message = "First name is mandatory")
     private String firstName;
 
     @Column(nullable = false, name = "last_name")
+    @NotBlank(message = "Last name is mandatory")
     private String lastName;
 
     @Column(length = 100)
+    @NotBlank(message = "Username is mandatory")
     private String username;
 
     @Column(length = 100)
+    @NotBlank(message = "Name is mandatory")
     private String password;
 
     @Column(name = "date_birth")

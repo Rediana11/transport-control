@@ -1,11 +1,7 @@
 package com.ikubinfo.internship.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "role")

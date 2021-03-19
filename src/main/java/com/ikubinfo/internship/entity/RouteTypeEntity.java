@@ -1,6 +1,7 @@
 package com.ikubinfo.internship.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,10 +21,12 @@ public class RouteTypeEntity {
             inverseJoinColumns = @JoinColumn(name = "route_type_id"))
     private Set<RouteEntity> routes = new HashSet<>();
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank(message = "Code is mandatory")
     private String code;
 
     @Column(length = 300)

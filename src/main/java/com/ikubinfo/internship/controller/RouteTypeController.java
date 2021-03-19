@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,7 @@ public class RouteTypeController {
     }
 
     @PostMapping(value = "/create", consumes = {"application/json"}, produces = {"application/json"})
-    public ResponseEntity<RouteTypeDTO> createRouteType(@RequestBody RouteTypeDTO routeTypeDTO) {
+    public ResponseEntity<RouteTypeDTO> createRouteType(@Valid @RequestBody RouteTypeDTO routeTypeDTO) {
         return ResponseEntity.ok().body(routeTypeService.createRouteType(routeTypeDTO));
     }
 

@@ -1,6 +1,7 @@
 package com.ikubinfo.internship.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.*;
 
@@ -15,19 +16,21 @@ public class RouteEntity {
     @ManyToMany(mappedBy = "routes")
     Set<RouteTypeEntity> routeTypes= new HashSet<>();
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank(message = "Code is mandatory")
     private String code;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
-    @Column(nullable = false)
+    @Column
     private String description;
 
-    @Column(nullable = false)
+    @Column
     private String startPlace;
 
-    @Column(nullable = false)
+    @Column
     private String destination;
 
     @Column

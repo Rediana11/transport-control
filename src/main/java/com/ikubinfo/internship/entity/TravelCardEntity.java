@@ -1,6 +1,7 @@
 package com.ikubinfo.internship.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,7 +15,8 @@ public class TravelCardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank(message = "Code is mandatory")
     private String code;
 
     @Column(name = "balance")

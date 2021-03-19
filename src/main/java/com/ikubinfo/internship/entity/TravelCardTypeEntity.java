@@ -1,6 +1,7 @@
 package com.ikubinfo.internship.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -12,13 +13,16 @@ public class TravelCardTypeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Column
+    @NotBlank(message = "Price is mandatory")
     private BigDecimal price;
 
     @Column(name="value_days")
+    @NotBlank(message = "Value days is mandatory")
     private int valueDays;
 
     @Column(name = "created_on")
