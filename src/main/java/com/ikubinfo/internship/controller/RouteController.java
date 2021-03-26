@@ -22,13 +22,15 @@ public class RouteController {
     public ResponseEntity<List<RouteDTO>> getAllRoutes() {
 
         List<RouteDTO> list = routeService.getAllRoutes();
-        return new ResponseEntity<List<RouteDTO>>(list, HttpStatus.OK);
+
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping(value = "/{id}", produces = {"application/json"})
     public ResponseEntity<RouteDTO> getRouteById(@PathVariable("id") Long id) {
 
-        return new ResponseEntity<RouteDTO>(routeService.getRouteById(id), HttpStatus.OK);
+        return ResponseEntity.ok(routeService.getRouteById(id));
+
     }
 
     @PostMapping(value = "/create", consumes = {"application/json"}, produces = "application/json")
@@ -44,7 +46,7 @@ public class RouteController {
         return ResponseEntity.ok().body(routeCreated);
     }
 
-    @DeleteMapping(value = "/delete/{id}",consumes = {"application/json"})
+    @DeleteMapping(value = "/delete/{id}", consumes = {"application/json"})
     public HttpStatus deleteRouteById(@RequestBody RouteDTO route) {
 
         routeService.deleteRouteById(route);

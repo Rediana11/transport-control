@@ -2,6 +2,7 @@ package com.ikubinfo.internship.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -14,15 +15,12 @@ public class TravelCardTypeEntity {
     private Long id;
 
     @Column
-    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Column
-    @NotBlank(message = "Price is mandatory")
     private BigDecimal price;
 
     @Column(name="value_days")
-    @NotBlank(message = "Value days is mandatory")
     private int valueDays;
 
     @Column(name = "created_on")

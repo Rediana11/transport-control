@@ -1,5 +1,7 @@
 package com.ikubinfo.internship.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -7,10 +9,15 @@ public class TravelCardTypeDTO {
 
     private Long id;
 
+    @NotBlank(message = "Name is mandatory")
+    @Size(min = 2, max = 20, message
+            = "Name must be between 2 and 20 characters")
     private String name;
 
+    @NotBlank(message = "Price is mandatory")
     private BigDecimal price;
 
+    @NotBlank(message = "Value days is mandatory")
     private int valueDays;
 
     private Date createdOn;

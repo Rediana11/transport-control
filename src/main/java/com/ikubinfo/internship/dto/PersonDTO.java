@@ -1,5 +1,8 @@
 package com.ikubinfo.internship.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -13,18 +16,28 @@ public class PersonDTO {
 
     private TravelCardDTO travelCard;
 
+    @NotBlank(message = "First name is mandatory")
+    @Size(min = 2, max = 20, message
+            = "First name must be between 2 and 20 characters")
     private String firstName;
 
+    @NotBlank(message = "Last name is mandatory")
     private String lastName;
 
     private Date dateBirth;
 
+    @NotBlank(message = "Email is mandatory")
+    @Email
     private String email;
 
     private int phoneNo;
 
+    @NotBlank(message = "Username is mandatory")
+    @Size(min = 2, max = 20, message
+            = "Username must be between 2 and 20 characters")
     private String username;
 
+    @NotBlank(message = "Password is mandatory")
     private String password;
 
     private String address;

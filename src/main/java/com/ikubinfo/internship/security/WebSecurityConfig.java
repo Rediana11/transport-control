@@ -84,7 +84,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/images/**","/swagger-ui/**",
                         "/swagger-resources/**",
                         "/v3/api-docs/**",
-                        "/api/travel-card/check");
+                        "/api/travel-card/check",
+                        "/api/travel-card/list");
     }
 
     // Configure security settings
@@ -92,7 +93,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         ;
         httpSecurity
-                // we don't need CSRF because our token is invulnerable
                 .csrf()
                 .disable()
                 .addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)

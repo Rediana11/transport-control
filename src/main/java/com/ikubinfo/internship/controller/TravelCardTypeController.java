@@ -22,22 +22,22 @@ public class TravelCardTypeController {
     public ResponseEntity<List<TravelCardTypeDTO>> getAllCardTypes() {
         List<TravelCardTypeDTO> list = cardTypeService.getAllCardTypes();
 
-        return new ResponseEntity<List<TravelCardTypeDTO>>(list, HttpStatus.OK);
+        return ResponseEntity.ok(list);
     }
 
-    @GetMapping(value = "/{id}",produces = {"application/json"})
+    @GetMapping(value = "/{id}", produces = {"application/json"})
     public ResponseEntity<TravelCardTypeDTO> getCardTypeById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(cardTypeService.getCardTypeById(id));
 
-        return new ResponseEntity<TravelCardTypeDTO>(cardTypeService.getCardTypeById(id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/create", produces = {"application/json"},consumes = {"application/json"})
+    @PostMapping(value = "/create", produces = {"application/json"}, consumes = {"application/json"})
     public ResponseEntity<TravelCardTypeDTO> createCardType(@Valid @RequestBody TravelCardTypeDTO cardType) {
 
         return ResponseEntity.ok().body(cardTypeService.createCardType(cardType));
     }
 
-    @PutMapping(value = "/update",produces = {"application/json"}, consumes = {"application/json"})
+    @PutMapping(value = "/update", produces = {"application/json"}, consumes = {"application/json"})
     public ResponseEntity<TravelCardTypeDTO> updateCardType(@RequestBody TravelCardTypeDTO cardType) {
 
         return ResponseEntity.ok().body(cardTypeService.updateCardType(cardType));

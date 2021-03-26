@@ -16,7 +16,6 @@ public class TravelCardEntity {
     private Long id;
 
     @Column
-    @NotBlank(message = "Code is mandatory")
     private String code;
 
     @Column(name = "balance")

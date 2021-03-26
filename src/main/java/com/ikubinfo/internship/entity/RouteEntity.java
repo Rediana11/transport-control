@@ -2,6 +2,7 @@ package com.ikubinfo.internship.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.*;
 
@@ -17,11 +18,9 @@ public class RouteEntity {
     Set<RouteTypeEntity> routeTypes= new HashSet<>();
 
     @Column
-    @NotBlank(message = "Code is mandatory")
     private String code;
 
     @Column
-    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Column

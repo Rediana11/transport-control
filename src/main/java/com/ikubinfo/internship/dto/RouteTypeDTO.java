@@ -1,5 +1,7 @@
 package com.ikubinfo.internship.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class RouteTypeDTO {
@@ -9,8 +11,14 @@ public class RouteTypeDTO {
 
     private RouteDTO route;
 
+    @NotBlank(message = "Name is mandatory")
+    @Size(min = 2, max = 20, message
+            = "Name must be between 2 and 20 characters")
     private String name;
 
+    @NotBlank(message = "Code is mandatory")
+    @Size(min = 2, max = 20, message
+            = "Code must be between 2 and 20 characters")
     private String code;
 
     private String description;
