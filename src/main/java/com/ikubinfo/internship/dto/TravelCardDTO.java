@@ -5,6 +5,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
 
 public class TravelCardDTO {
 
@@ -19,9 +20,15 @@ public class TravelCardDTO {
 
     private BigDecimal balance;
 
+    private Set<RouteDTO> routes;
+
     private LocalDateTime activatedOfferDate;
 
+    private LocalDateTime ticketPurchaseTime;
+
     private TravelCardTypeDTO travelCardType;
+
+    private boolean isLost;
 
     private Date createdOn;
 
@@ -61,6 +68,14 @@ public class TravelCardDTO {
         this.travelCardType = travelCardType;
     }
 
+    public boolean isLost() {
+        return isLost;
+    }
+
+    public void setLost(boolean lost) {
+        isLost = lost;
+    }
+
     public Date getCreatedOn() {
         return createdOn;
     }
@@ -93,11 +108,27 @@ public class TravelCardDTO {
         this.balance = balance;
     }
 
+    public LocalDateTime getTicketPurchaseTime() {
+        return ticketPurchaseTime;
+    }
+
+    public void setTicketPurchaseTime(LocalDateTime ticketPurchaseTime) {
+        this.ticketPurchaseTime = ticketPurchaseTime;
+    }
+
     public LocalDateTime getActivatedOfferDate() {
         return activatedOfferDate;
     }
 
     public void setActivatedOfferDate(LocalDateTime activatedOfferDate) {
         this.activatedOfferDate = activatedOfferDate;
+    }
+
+    public Set<RouteDTO> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(Set<RouteDTO> routes) {
+        this.routes = routes;
     }
 }

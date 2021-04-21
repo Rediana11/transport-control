@@ -15,7 +15,7 @@ public class RouteEntity {
     private Long id;
 
     @ManyToMany(mappedBy = "routes")
-    Set<RouteTypeEntity> routeTypes= new HashSet<>();
+    Set<RouteTypeEntity> routeTypes = new HashSet<>();
 
     @Column
     private String code;
@@ -127,7 +127,6 @@ public class RouteEntity {
     public void setCreated_on(Date created_on) {
         this.created_on = created_on;
     }
-
 
     public Date getUpdatedOn() {
         return updatedOn;

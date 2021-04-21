@@ -1,8 +1,10 @@
 package com.ikubinfo.internship.service;
 
 import com.ikubinfo.internship.dto.RouteTypeDTO;
+import com.ikubinfo.internship.entity.RouteEntity;
 import com.ikubinfo.internship.entity.RouteTypeEntity;
 import com.ikubinfo.internship.exception.EntityNotFoundException;
+import com.ikubinfo.internship.exception.TypeInUseException;
 import com.ikubinfo.internship.mapper.RouteTypeMapper;
 import com.ikubinfo.internship.repository.RouteTypeRepository;
 import org.mapstruct.factory.Mappers;
@@ -35,7 +37,10 @@ public class RouteTypeService  {
     }
 
     public RouteTypeDTO updateRouteType(RouteTypeDTO routeType) {
-        if (routeTypeRepository.existsById(routeType.getId())) {
+        if (routeTypeRepository.isRouteTypeInUse(routeType.getId())>0){
+            throw new TypeInUseException("This route type is already in use, can not update it!");
+        }
+        else if (routeTypeRepository.existsById(routeType.getId())) {
             routeType.setUpdatedOn(new Date());
             RouteTypeEntity updatedRouteType = routeTypeRepository.save(mapper.toEntity(routeType));
             return mapper.toDto(updatedRouteType);
@@ -50,12 +55,17 @@ public class RouteTypeService  {
         return mapper.toDto(newTypeEntity);
     }
 
-    public void deleteRouteTypeById(RouteTypeDTO routeType) {
-        if (routeTypeRepository.existsById(routeType.getId())) {
-            routeType.setDeleted(true);
-            routeTypeRepository.save(mapper.toEntity(routeType));
-        } else {
-            throw new EntityNotFoundException("Not valid Id: " + routeType.getId());
+    public void deleteRouteTypeById(long id) {
+
+        if (routeTypeRepository.isRouteTypeInUse(id)>0){
+            throw new TypeInUseException("This route type is already in use, can not delete it!");
+        }
+        else if (routeTypeRepository.existsById(id)) {
+            Optional<RouteTypeEntity> route= routeTypeRepository.findById(id);
+            route.get().setDeleted(true);
+            routeTypeRepository.save(route.get());
+        }else {
+            throw new EntityNotFoundException("Not valid Id: " + id);
         }
     }
 }

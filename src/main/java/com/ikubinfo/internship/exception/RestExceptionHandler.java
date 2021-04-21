@@ -47,6 +47,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<ExceptionResponse>(response, response.getStatus());
     }
 
+    @ExceptionHandler(TypeInUseException.class)
+    public ResponseEntity<ExceptionResponse> handleTypeInUse(TypeInUseException ex) {
+        ExceptionResponse response = new ExceptionResponse();
+        response.setStatus(HttpStatus.NOT_FOUND);
+        response.setErrorMessage(ex.getLocalizedMessage());
+        response.setTimestamp(LocalDateTime.now());
+        logger.error("An error ocurred! ", response);
+        return new ResponseEntity<ExceptionResponse>(response, response.getStatus());
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ExceptionResponse> resourceNotFound(IllegalArgumentException ex) {
         ExceptionResponse response = new ExceptionResponse();

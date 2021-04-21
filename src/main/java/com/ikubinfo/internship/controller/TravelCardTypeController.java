@@ -44,8 +44,8 @@ public class TravelCardTypeController {
     }
 
     @DeleteMapping(value = "/delete/{id}", consumes = "application/json")
-    public HttpStatus deleteCardTypeById(@RequestBody TravelCardTypeDTO cardType) {
-        cardTypeService.deleteCardTypeById(cardType);
-        return HttpStatus.FORBIDDEN;
+    public HttpStatus deleteCardTypeById(@PathVariable ("id") Long id) {
+        cardTypeService.deleteCardTypeById(id);
+        return HttpStatus.OK;
     }
 }

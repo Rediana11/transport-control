@@ -38,18 +38,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
         this.authenticationErrorHandler = authenticationErrorHandler;
     }
-    // Configure BCrypt password encoder
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
 
-   /* @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-*/
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -84,8 +78,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/images/**","/swagger-ui/**",
                         "/swagger-resources/**",
                         "/v3/api-docs/**",
-                        "/api/travel-card/check",
-                        "/api/travel-card/list");
+                        "/api/travel-card/check/{id}/{routeId}",
+                        "/api/travel-card/list",
+                        "/api/route/list/most-frequented/{localDateTime1}/{localDateTime2}",
+                        "/api/travel-card/{id}",
+                        "/api/travel-card/book-ticket/{id}/{routeId}");
     }
 
     // Configure security settings

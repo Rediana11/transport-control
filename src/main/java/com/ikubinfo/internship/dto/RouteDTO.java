@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class RouteDTO {
 
@@ -108,6 +109,7 @@ public class RouteDTO {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
 
     public Date getCreated_on() {
         return created_on;

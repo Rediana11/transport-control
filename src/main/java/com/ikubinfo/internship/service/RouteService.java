@@ -9,6 +9,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -55,12 +56,18 @@ public class RouteService {
     }
 
 
-    public void deleteRouteById(RouteDTO route) {
-        if (routeRepository.existsById(route.getId())) {
-            route.setDeleted(true);
-            routeRepository.save(mapper.toEntity(route));
+    public void deleteRouteById(long id) {
+        if (routeRepository.existsById(id)) {
+            Optional<RouteEntity> route= routeRepository.findById(id);
+            route.get().setDeleted(true);
+            routeRepository.save(route.get());
         } else {
-            throw new EntityNotFoundException("Not valid Id: " + route.getId());
+            throw new EntityNotFoundException("Not valid Id: " + id);
         }
     }
+
+    public List<String> getMostFrequentedLines(LocalDateTime firstDate, LocalDateTime secondDate){
+         return routeRepository.getMostFrequentedLines(firstDate, secondDate);
+    }
+
 }

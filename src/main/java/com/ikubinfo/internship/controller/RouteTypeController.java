@@ -40,8 +40,8 @@ public class RouteTypeController {
     }
 
     @DeleteMapping(value = "/delete/{id}", consumes = {"application/json"})
-    public HttpStatus deleteRouteTypeById(@RequestBody RouteTypeDTO routeTypeDTO) {
-        routeTypeService.deleteRouteTypeById(routeTypeDTO);
-        return HttpStatus.FORBIDDEN;
+    public HttpStatus deleteRouteTypeById(@PathVariable("id") Long id) {
+        routeTypeService.deleteRouteTypeById(id);
+        return HttpStatus.OK;
     }
 }

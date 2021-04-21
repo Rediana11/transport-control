@@ -1,8 +1,10 @@
 package com.ikubinfo.internship.service;
 
 import com.ikubinfo.internship.dto.TravelCardTypeDTO;
+import com.ikubinfo.internship.entity.RouteEntity;
 import com.ikubinfo.internship.entity.TravelCardTypeEntity;
 import com.ikubinfo.internship.exception.EntityNotFoundException;
+import com.ikubinfo.internship.exception.TypeInUseException;
 import com.ikubinfo.internship.mapper.TravelCardTypeMapper;
 import com.ikubinfo.internship.repository.TravelCardTypeRepository;
 import org.mapstruct.factory.Mappers;
@@ -43,7 +45,10 @@ public class TravelCardTypeService {
     }
 
     public TravelCardTypeDTO updateCardType(TravelCardTypeDTO cardType) {
-        if (cardTypeRepository.existsById(cardType.getId())) {
+        if (cardTypeRepository.isCardTypeInUse(cardType.getId())>0){
+            throw new TypeInUseException("This card type is already in use. Can not update it!");
+        }
+        else if (cardTypeRepository.existsById(cardType.getId())) {
 
             TravelCardTypeEntity updatedCardType = cardTypeRepository.save(mapper.toEntity(cardType));
             cardType.setUpdatedOn(new Date());
@@ -53,12 +58,17 @@ public class TravelCardTypeService {
         }
     }
 
-    public void deleteCardTypeById(TravelCardTypeDTO cardType) {
-        if (cardTypeRepository.existsById(cardType.getId())) {
-            cardType.setDeleted(true);
-            cardTypeRepository.save(mapper.toEntity(cardType));
-        } else {
-            throw new EntityNotFoundException("Not valid Id: " + cardType.getId());
+    public void deleteCardTypeById(long id) {
+        if (cardTypeRepository.isCardTypeInUse(id)>0){
+            throw new TypeInUseException("This card type is already in use. Can not update it!");
+        }
+        else if (cardTypeRepository.existsById(id)) {
+            Optional<TravelCardTypeEntity> cardType= cardTypeRepository.findById(id);
+            cardType.get().setDeleted(true);
+            cardTypeRepository.save(cardType.get());
+        }
+        else {
+            throw new EntityNotFoundException("Not valid Id: " + id);
         }
     }
 }

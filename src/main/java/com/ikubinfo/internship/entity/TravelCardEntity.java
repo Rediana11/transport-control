@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "travel_card")
@@ -13,6 +15,7 @@ public class TravelCardEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column
@@ -31,6 +34,9 @@ public class TravelCardEntity {
 
     @Column(name = "activated_offer_date")
     private LocalDateTime activatedOfferDate;
+
+    @Column(name = "is_lost")
+    private boolean isLost;
 
     @Column(name = "created_on")
     private Date created_on;
@@ -95,6 +101,14 @@ public class TravelCardEntity {
 
     public void setActivatedOfferDate(LocalDateTime activatedOfferDate) {
         this.activatedOfferDate = activatedOfferDate;
+    }
+
+    public boolean isLost() {
+        return isLost;
+    }
+
+    public void setLost(boolean lost) {
+        isLost = lost;
     }
 
     public Date getCreated_on() {
