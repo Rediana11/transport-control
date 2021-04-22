@@ -79,14 +79,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**",
                         "/v3/api-docs/**",
                         "/api/travel-card/check/{id}/{routeId}",
-                        "/api/travel-card/list",
-                        "/api/route/list/most-frequented/{localDateTime1}/{localDateTime2}",
-                        "/api/travel-card/{id}",
                         "/api/travel-card/book-ticket/{id}/{routeId}");
     }
 
     // Configure security settings
-    @Override
+    @Overridecd cd 
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         ;
         httpSecurity
@@ -105,12 +102,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/travel-card/update")
-                .hasAuthority("OPERATOR")
-                .antMatchers("/api/travel-card/create")
-                .hasAuthority("ADMIN")
-                .antMatchers("/api/travel-card/delete/{^[\\d]$}")
-                .hasAuthority("ADMIN")
                 .antMatchers("/api/route-type/update")
                 .hasAuthority("ADMIN")
                 .antMatchers("/api/route-type/create")
@@ -124,6 +115,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/card-type/**")
                 .hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/route/**")
+                .hasAuthority("ADMIN")
+                .antMatchers("/api/travel-card/**")
                 .hasAuthority("ADMIN")
                 .antMatchers("/api/create-user")
                 .hasAuthority("ADMIN")

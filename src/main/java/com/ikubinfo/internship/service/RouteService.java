@@ -1,6 +1,7 @@
 package com.ikubinfo.internship.service;
 
 import com.ikubinfo.internship.dto.RouteDTO;
+import com.ikubinfo.internship.dto.StatisticData;
 import com.ikubinfo.internship.entity.RouteEntity;
 import com.ikubinfo.internship.exception.EntityNotFoundException;
 import com.ikubinfo.internship.mapper.RouteMapper;
@@ -66,7 +67,7 @@ public class RouteService {
         }
     }
 
-    public List<String> getMostFrequentedLines(LocalDateTime firstDate, LocalDateTime secondDate){
+    public List<StatisticData> getMostFrequentedLines(LocalDateTime firstDate, LocalDateTime secondDate){
          return routeRepository.getMostFrequentedLines(firstDate, secondDate);
     }
 

@@ -1,6 +1,7 @@
 package com.ikubinfo.internship.controller;
 
 import com.ikubinfo.internship.dto.RouteDTO;
+import com.ikubinfo.internship.dto.StatisticData;
 import com.ikubinfo.internship.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,9 +56,9 @@ public class RouteController {
     }
 
     @GetMapping(value = "/list/most-frequented/{localDateTime1}/{localDateTime2}")
-    public ResponseEntity<List<String>> getMostFrequentedLines(@RequestParam("localDateTime1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    public ResponseEntity<List<StatisticData>> getMostFrequentedLines(@RequestParam("localDateTime1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                                                      LocalDateTime localDateTime1,
-                                                                     @RequestParam("localDateTime2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                                      @RequestParam("localDateTime2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                                                              LocalDateTime localDateTime2) {
 
         return ResponseEntity.ok(routeService.getMostFrequentedLines(localDateTime1,localDateTime2));
