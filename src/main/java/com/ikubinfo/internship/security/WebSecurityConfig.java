@@ -83,7 +83,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // Configure security settings
-    @Overridecd cd 
+    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         ;
         httpSecurity
