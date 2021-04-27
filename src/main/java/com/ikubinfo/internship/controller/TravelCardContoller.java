@@ -58,10 +58,5 @@ public class TravelCardContoller {
     public ResponseEntity<TicketDTO> bookTheTicket(@PathVariable("id") Long id, @PathVariable("routeId") Long routeId) {
         return ResponseEntity.ok().body(this.travelCardService.bookTheTicket(routeId,id));
     }
-    /*@GetMapping(value = "/test/{id}/{routeId}")
-    public ResponseEntity<TravelCardDTO> getTest(@PathVariable("id") Long id, @PathVariable("routeId") Long routeId) {
-        return ResponseEntity.ok(travelCardService.addRouteToCard(routeId,id));
-
-    }*/
 
 }

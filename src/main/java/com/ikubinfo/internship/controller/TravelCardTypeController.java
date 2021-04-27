@@ -43,7 +43,7 @@ public class TravelCardTypeController {
         return ResponseEntity.ok().body(cardTypeService.updateCardType(cardType));
     }
 
-    @DeleteMapping(value = "/delete/{id}", consumes = "application/json")
+    @DeleteMapping(value = "/delete/{id}")
     public HttpStatus deleteCardTypeById(@PathVariable ("id") Long id) {
         cardTypeService.deleteCardTypeById(id);
         return HttpStatus.OK;

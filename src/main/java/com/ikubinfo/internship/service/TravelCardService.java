@@ -102,8 +102,6 @@ public class TravelCardService {
     public void usingTicket(TravelCardDTO card) {
         if (isCreditValuable(card) && isCardAvailable(card)) {
             BigDecimal newBalance = card.getBalance().subtract(cardTypeRepository.findByName("TICKET").getPrice());
-            LocalDateTime currentTime = LocalDateTime.now();
-            card.setTicketPurchaseTime(currentTime);
             card.setBalance(newBalance);
             travelCardRepository.save(mapper.toEntity(card));
         }

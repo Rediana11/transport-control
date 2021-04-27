@@ -2,6 +2,7 @@ package com.ikubinfo.internship.service;
 
 import com.ikubinfo.internship.dto.AuthDTO;
 import com.ikubinfo.internship.entity.PersonEntity;
+import com.ikubinfo.internship.exception.EntityNotFoundException;
 import com.ikubinfo.internship.repository.PersonRepository;
 import com.ikubinfo.internship.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class AuthService {
 
     public String authenticate (AuthDTO authDTO){
         PersonEntity user = personRepository.findPersonByUsername(authDTO.getUsername());
+        if (user==null || !user.getPassword().equals(authDTO.getPassword())){
+            throw new EntityNotFoundException("Wrong credencials ! User not found!");
+        }
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);

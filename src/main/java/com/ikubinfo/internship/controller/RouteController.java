@@ -49,7 +49,7 @@ public class RouteController {
         return ResponseEntity.ok().body(routeCreated);
     }
 
-    @DeleteMapping(value = "/delete/{id}", consumes = {"application/json"})
+    @DeleteMapping(value = "/delete/{id}")
     public HttpStatus deleteRouteById(@PathVariable ("id") Long id ) {
         routeService.deleteRouteById(id);
         return HttpStatus.OK;

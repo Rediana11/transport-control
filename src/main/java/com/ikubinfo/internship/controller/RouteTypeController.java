@@ -39,7 +39,7 @@ public class RouteTypeController {
         return ResponseEntity.ok().body(routeTypeService.updateRouteType(routeTypeDTO));
     }
 
-    @DeleteMapping(value = "/delete/{id}", consumes = {"application/json"})
+    @DeleteMapping(value = "/delete/{id}")
     public HttpStatus deleteRouteTypeById(@PathVariable("id") Long id) {
         routeTypeService.deleteRouteTypeById(id);
         return HttpStatus.OK;

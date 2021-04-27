@@ -17,7 +17,6 @@ public class TravelCardTypeDTO {
     @NotBlank(message = "Price is mandatory")
     private BigDecimal price;
 
-    @NotBlank(message = "Value days is mandatory")
     private int valueDays;
 
     private Date createdOn;

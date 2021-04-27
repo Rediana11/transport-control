@@ -79,7 +79,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**",
                         "/v3/api-docs/**",
                         "/api/travel-card/check/{id}/{routeId}",
-                        "/api/travel-card/book-ticket/{id}/{routeId}");
+                        "/api/travel-card/book-ticket/{id}/{routeId}",
+                        "/api/route/list/most-frequented/{localDateTime1}/{localDateTime2}");
     }
 
     // Configure security settings

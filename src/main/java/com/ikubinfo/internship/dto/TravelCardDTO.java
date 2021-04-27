@@ -24,8 +24,6 @@ public class TravelCardDTO {
 
     private LocalDateTime activatedOfferDate;
 
-    private LocalDateTime ticketPurchaseTime;
-
     private TravelCardTypeDTO travelCardType;
 
     private boolean isLost;
@@ -106,14 +104,6 @@ public class TravelCardDTO {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
-    }
-
-    public LocalDateTime getTicketPurchaseTime() {
-        return ticketPurchaseTime;
-    }
-
-    public void setTicketPurchaseTime(LocalDateTime ticketPurchaseTime) {
-        this.ticketPurchaseTime = ticketPurchaseTime;
     }
 
     public LocalDateTime getActivatedOfferDate() {
